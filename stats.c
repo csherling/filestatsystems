@@ -26,7 +26,7 @@ int main(){
 
   sp filestat = (sp)malloc(sizeof(sp));
   stat("file.txt", filestat);
-  printf("size: %lld B\n", filestat->st_size);
+  printf("size: %ld B\n", filestat->st_size);
   printf("mode: %o\n", filestat->st_mode);
   printf("last access: %s\n", ctime(&(filestat->st_atim.tv_sec)));
 
