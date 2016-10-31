@@ -12,31 +12,33 @@ typedef struct stat* sp;
 //returns location of highest digit in binary number
 int* toBinary(int n, int* buffer)
 {
-	int* loc = buffer;
-	while(n)
-	{
-		*(loc) = n%2;
-		n/=2;
-		loc++;
-	}
-	return loc;
+  int* loc = buffer;
+  while(n)
+  {
+    *(loc) = n%2;
+    n/=2;
+    loc++;
+  }
+  return loc;
 }
 
 int main(){
 
   sp filestat = (sp)malloc(sizeof(sp));
   stat("file.txt", filestat);
-  printf("size: %ld B\n", filestat->st_size);
+  printf("size: %lld B\n", filestat->st_size);
   printf("mode: %o\n", filestat->st_mode);
-  printf("last access: %s\n", ctime(&(filestat->st_atim.tv_sec)));
+  //printf("last access: %s\n", ctime(&(filestat->st_atim.tv_sec)));
+  printf("last access: %lu\n", filestat->st_atimespec.tv_sec);
+
 
   int* buffer = malloc(20 * sizeof(int));
   int* lastPointer = toBinary(filestat->st_mode, buffer);
 
   while(lastPointer >= buffer)
   {
-  	printf("%d", *(lastPointer));
-  	lastPointer--;
+    printf("%d", *(lastPointer));
+    lastPointer--;
   }
   printf("\n");
 
